@@ -6,6 +6,7 @@
 // @author       Taniko Yamamoto (kirasicecreamm@gmail.com)
 // @author       John Patrick Adem (not an actual author, just placing my name here because i made some changes to this script and i forked it)
 // @license      Unlicense
+// @downloadURL  https://raw.githubusercontent.com/jpa102/YouTubePatchCollection/main/YouTubePatchCollection.user.js
 // @updateURL    https://raw.githubusercontent.com/jpa102/YouTubePatchCollection/main/YouTubePatchCollection.user.js
 // @match        www.youtube.com/*
 // @icon         https://www.youtube.com/favicon.ico
