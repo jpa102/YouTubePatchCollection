@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Patch Collection
-// @version      2.1.01
+// @version      2.1.02
 // @description  Allows for changing of yt.config_ values (unofficial update)
 // @author       Aubrey Pankow (aubyomori@gmail.com)
 // @author       Taniko Yamamoto (kirasicecreamm@gmail.com)
