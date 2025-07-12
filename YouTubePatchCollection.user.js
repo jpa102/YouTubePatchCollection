@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Patch Collection
-// @version      2.1.02
+// @version      2.1.05
 // @description  Allows for changing of yt.config_ values (unofficial update)
 // @author       Aubrey Pankow (aubyomori@gmail.com)
 // @author       Taniko Yamamoto (kirasicecreamm@gmail.com)
@@ -21,71 +21,82 @@
 /*
     General settings (設定)
 */
-let isWatchGrid = false; //                         it can be related to the grids
-let disableOldDescription = false; //                bring back the old description from 2021+ layout
-let enableChannelPageHeader = false; //             channel page header ??
-let isModernSd = false; //                          the hell is this?
-let isWatchCommentsPanelButton = false; //          adds a button to the comments ??
-let isSmartimationBackground = false; //            the hell is smartimation? maybe it relates to the new animations
-let isWebAnimatedActions = false; //                actions are animated
-let enableWebModernCollectionsV2 = false; //        related to the modern resources throughout the website (indicated by v2 - version 2)
-let isModernTabs = false; //                        modern tabs
-let enableYoutab = false; //                        the new "You" tab that appears on the sidebar
+let isWatchGrid = false; //                                                   it can be related to the grids
+let disableOldDescription = false; //                                         bring back the old description from 2021+ layout
+let enableChannelPageHeader = true; //                                        channel page header ??
+let isModernSd = false; //                                                    the hell is this?
+let isWatchCommentsPanelButton = false; //                                    adds a button to the comments ??
+let isSmartimationBackground = false; //                                      the hell is smartimation? maybe it relates to the new animations
+let isWebAnimatedActions = false; //                                          actions are animated
+let enableWebModernCollectionsV2 = false; //                                  related to the modern resources throughout the website (indicated by v2 - version 2)
+let isModernTabs = false; //                                                  modern tabs
+let enableYoutab = false; //                                                  the new "You" tab that appears on the sidebar
 
-let deprecateCSIinfo = false; //                    deprecate the "csi" info in channel page
-let isClientRelease = false; //                     sets the flag if the client is in "release - public" or not (maybe "debug") ?
-let isSidebarSwipeable = false; //                  set the sidebar if it can be swiped or not
-let disableLegacyDesktopRemoteQueue = false; //     disable the legacy desktop remote queue
-let enablePolymerResin = false; //                  enable the polymer resin (related to the layout?)
-let userExperiment = false; //                      set this to true if you want to be a part of YouTube's "hidden" experiments (can be seen when you're signed out or in private sessions)
-let isURLnotDisplayable = false; //                 idk what this is, but it can be related to the rendering of the URLs (maybe making it not clickable)
-let ismodernSdKevlar = false; //                    the hell is this?
-let isSystemIconsKevlar = false; //                 kevlar system icons (idk what the hell is "kevlar", but it can be found internally. commented out by default)
-let commentsDelayTimer = 5000; //                   adds a delay to the comments ?? (5000 milliseconds by default)
-let isTypographyUpdate = false; //                  related to the fonts being used throughout the website
-let useWilIconsKevlar = false; //                   the hell is this? (commented out by default)
-let disableLegacyMetadataUpdates = false; //        prevents the legacy metadata from getting any updates
-let hideTeaserComments = false; //                  hide the teaser comments in the watch page ??
-let compactViewCountRefreshMetadata = false; //     refresh compact view counts - metadata
-let isModernWatchPanels = false; //                 modern watch panels - kevlar
-let migrateRemainingAdBadges = false; //            migrate the remaining web ad badges to "innertube" (who likes ads?)
-let enableDarkerDarkTheme = false; //               enable the "darker" dark theme
-let isWebModernTypography = false; //               toggle the new modern typography throughout the website
-let isSegmentedLikeDislikeButton = false; //        segmented like and dislike buttons
-let isRoundedPlayer = false; //                     rounded large video player
-let forcedInternalCountryCodeDebug = ""; //       forced debug internal country code (two letter string, example is en_US)
+let commentsDelayTimer = 5000; //                                             adds a delay to the comments ?? (5000 milliseconds by default)
+let compactViewCountRefreshMetadata = false; //                               refresh compact view counts - metadata
+let deprecateCSIinfo = false; //                                              deprecate the "csi" info in channel page
+let disableLegacyDesktopRemoteQueue = false; //                               disable the legacy desktop remote queue
+let disableLegacyMetadataUpdates = false; //                                  prevents the legacy metadata from getting any updates
+let enableDarkerDarkTheme = false; //                                         enable the "darker" dark theme
+let enablePolymerResin = false; //                                            enable the polymer resin (related to the layout?)
+let enableModernChannelProfileSection = false; //                             idk what is this at the moment...
+let enableBiggerThumbsInDesktopSearch = false; //                             idk, bigger thumb icons in search results?
+let enableBiggerThumbsInDesktopSearchSquare = false; //                       idk what is this at the moment...
+let enableDMAPostEnforcement = false; //                                      idk what is this at the moment...
+let enableFullyReactiveBadgeShape = false; //                                 idk what is this at the moment...
+let enableHlpClientIcon = false; //                                           idk what is this at the moment...
+let enableMastheadQuartilePingFix = false; //                                 idk, fix the ping issue in the masthead?
+let enablePolymerResinMigration = false; //                                   idk what is this at the moment...
+let forcedInternalCountryCodeDebug = ""; //                                   forced debug internal country code (two letter string, example is en_US)
+let gBusinessInfoInCountries = ['NL', 'ES', 'PH', 'JP', 'KR']; //             the list of countries with business info
+let gLegalFooterEnabledInCountriesList = ['NL', 'ES', 'PH', 'JP']; //         the list of countries with legal footer enabled
 
-let systemIconsKevlar = false; //                   kevlar system icons
-let unicodeEmojisAsSmallImages = false; //          render the unicode emojis as small images
-let clientUnavailableVideoErrorUi = false; //       the hell is this?
-let refreshOnThemeChange = false; //                refresh the page when the theme changes
-let watchMetadataRefresh = false; //                refresh the metadata on watch page
-let isWatchModernMetapanel = false; //              maybe related to metadata panels ??
-let isAmsterdamPlaylists = false; //                the hell is this? themed playlists?
-let isAnimatedLike = false; //                      animated like (when you press it, it shows an animation - only on watch page)
-let isButtonRework = false; //                      reworked buttons throughout pages
-let buttonReworkWithLive = false; //                reworked buttons on live
-let isUiRefresh = false; //                         idk if it's supposed to be a "design refresh" or "refresh" the ui everytime it's loaded
-let isModernAds = false; //                         web modern ads (who likes ads?)
-let isModernButtons = false; //                     modern buttons (referencing the material you rounded design)
-let isModernChips = false; //                       modern chips (basically little icons)
-let isModernDialogs = false; //                     modern dialogs
-let isModernPlaylists = false; //                   modern playlists
-let isModernSubscribe = false; //                   modern subscribe
-let roundedContainers = false; //                   rounded containers (like in the description at the watch page)
-let roundedThumbnails = false; //                   rounded thumbnails
-let webSearchbarStyle = "default"; //               searchbar style (string)
-let webSheetsUiRefresh = false; //                  css ui refresh ??
+let hideTeaserComments = false; //                                            hide the teaser comments in the watch page ??
+let isClientRelease = false; //                                               sets the flag if the client is in "release - public" or not (maybe "debug") ?
+let ismodernSdKevlar = false; //                                              the hell is this?
+let isModernWatchPanels = false; //                                           modern watch panels - kevlar
+let isRoundedPlayer = false; //                                               rounded large video player
+let isSegmentedLikeDislikeButton = false; //                                  segmented like and dislike buttons
+let isSidebarSwipeable = false; //                                            set the sidebar if it can be swiped or not
+let isSystemIconsKevlar = false; //                                           kevlar system icons (idk what the hell is "kevlar", but it can be found internally. commented out by default)
+let isURLnotDisplayable = false; //                                           idk what this is, but it can be related to the rendering of the URLs (maybe making it not clickable)
+let isWebModernTypography = false; //                                         toggle the new modern typography throughout the website
+let isTypographyUpdate = false; //                                            related to the fonts being used throughout the website
+let migrateRemainingAdBadges = false; //                                      migrate the remaining web ad badges to "innertube" (who likes ads?)
+let userExperiment = false; //                                                set this to true if you want to be a part of YouTube's "hidden" experiments (can be seen when you're signed out or in private sessions)
+let useWilIconsKevlar = false; //                                             the hell is this? (commented out by default)
+
+let systemIconsKevlar = false; //                                             kevlar system icons
+let unicodeEmojisAsSmallImages = false; //                                    render the unicode emojis as small images
+let clientUnavailableVideoErrorUi = false; //                                 the hell is this?
+let refreshOnThemeChange = false; //                                          refresh the page when the theme changes
+let watchMetadataRefresh = false; //                                          refresh the metadata on watch page
+let isWatchModernMetapanel = false; //                                        maybe related to metadata panels ??
+let isAmsterdamPlaylists = false; //                                          the hell is this? themed playlists?
+let isAnimatedLike = false; //                                                animated like (when you press it, it shows an animation - only on watch page)
+let isButtonRework = false; //                                                reworked buttons throughout pages
+let buttonReworkWithLive = false; //                                          reworked buttons on live
+let isUiRefresh = false; //                                                   idk if it's supposed to be a "design refresh" or "refresh" the ui everytime it's loaded
+let isModernAds = false; //                                                   web modern ads (who likes ads?)
+let isModernButtons = false; //                                               modern buttons (referencing the material you rounded design)
+let isModernChips = false; //                                                 modern chips (basically little icons)
+let isModernDialogs = false; //                                               modern dialogs
+let isModernPlaylists = false; //                                             modern playlists
+let isModernSubscribe = false; //                                             modern subscribe
+let roundedContainers = false; //                                             rounded containers (like in the description at the watch page)
+let roundedThumbnails = false; //                                             rounded thumbnails
+let webSearchbarStyle = "default"; //                                         searchbar style (string)
+let webSheetsUiRefresh = false; //                                            css ui refresh ??
 
 
 
 /*
     Player settings (プレイヤーの設定)
 */
-let webPlayerMoveAutonavToggle = "false"; //        auto navigation toggle in player ??
-let webSettingsMenuIcons = "false"; //              i have no idea what is this
-let roundedContainersPlayer = false; //             rounded containers (like in the description at the watch page)
-let roundedThumbnailsPlayer = false; //             rounded thumbnails
+let webPlayerMoveAutonavToggle = "false"; //                                  auto navigation toggle in player ??
+let webSettingsMenuIcons = "false"; //                                        i have no idea what is this
+let roundedContainersPlayer = false; //                                       rounded containers (like in the description at the watch page)
+let roundedThumbnailsPlayer = false; //                                       rounded thumbnails
 
 // ======================================================================
 
@@ -137,6 +148,76 @@ const EXPFLAGS = {
 	web_segmented_like_dislike_button: isSegmentedLikeDislikeButton,
 	web_watch_rounded_player_large: isRoundedPlayer,
 	debug_forced_internalcountrycode: forcedInternalCountryCodeDebug,
+	// new
+	disable_frosted_glass_on_shorts: false, // new
+	desktop_sparkles_light_cta_button: false, // new
+	desktop_use_new_history_manager: false, // new
+	enable_cairo_refresh_ringo2_web: false, // new
+	enable_cairo_refresh_signature_moments_web: false, // new
+	enable_cairo_refresh_web: false, // new
+	enable_channel_page_header_profile_section: false, // new
+	enable_channel_page_modern_profile_section: enableModernChannelProfileSection,
+	enable_desktop_search_bigger_thumbs: enableBiggerThumbsInDesktopSearch,
+	enable_desktop_search_bigger_thumbs_square: enableBiggerThumbsInDesktopSearchSquare,
+	enable_dma_post_enforcement: enableDMAPostEnforcement,
+	enable_fully_reactive_badge_shape: enableFullyReactiveBadgeShape,
+	enable_hlp_client_icon_pick: enableHlpClientIcon,
+	enable_masthead_quartile_ping_fix: enableMastheadQuartilePingFix,
+	enable_polymer_resin_migration: enablePolymerResinMigration,
+	enable_scrolling_fix: false,
+	enable_yoodle: false,
+	guide_business_info_countries: gBusinessInfoInCountries,
+	guide_legal_footer_enabled_countries: gLegalFooterEnabledInCountriesList,
+	kevlar_dropdown_fix: false,
+	kevlar_enable_up_arrow: false,
+	kevlar_enable_wiz_icon_shape: false, // new
+	kevlar_guide_refresh: false,
+	kevlar_js_fixes: true,
+	kevlar_keyboard_button_focus: false,
+	kevlar_larger_three_dot_tap: false,
+	kevlar_tabs_gesture: false,
+	kevlar_use_vimio_behavior: true, // apparently, setting this to false disables the profile pictures in the sidebar (mainly the channels you've subscribed to)
+	kevlar_use_ytd_player: false,
+	kevlar_variable_youtube_sans: false,
+	kevlar_watch_metadata_refresh_clickable_description: true,
+	mweb_enable_keto_batch_icons: false, // new
+	use_color_palettes_modern_collections_v2: false, // new
+	web_animated_actions: false, // new
+	web_animated_actions_v2: false,
+	web_animated_like_lazy_load: false,
+	web_animated_rolling_character_update: false, // new
+	web_avatar_shape_inline_icon: false, // new
+	web_bookmark_playlist_save_icon: false, // new
+	web_cairo_modern_miniplayer: false, // new
+	web_cairo_modern_miniplayer_infobar: false, // new
+	web_cairo_modern_miniplayer_old_sizing: false, // new
+	web_cairo_modern_miniplayer_transitions: false, // new
+	web_cinematic_light_theme: false,
+	web_darker_dark_theme_deprecate: false,
+	web_darker_dark_theme_live_chat: false,
+	web_defer_shorts_ui: false,
+	web_defer_shorts_ui_phase2: false,
+	web_disable_vertical_scroll_chips: false,
+	web_ep_restyling: false, // new
+	web_filled_subscribed_button: false,
+	web_fix_fine_scrubbing_false_play: false,
+	web_fix_segmented_like_dislike_undefined: true,
+	web_modern_buttons_bl_survey: false, // new
+	web_modern_collections: false,
+	web_move_autoplay_video_under_chip: false,
+	web_shorts_badge_migration: false,
+	web_shorts_deflate_inactive_slides_aggressive: false,
+	web_shorts_scrubber_bar: false,
+	web_shorts_scrubber_bar_counterfactual: false,
+	web_shorts_scrubber_bar_skip_listeners: false,
+	web_shorts_shelf_on_search: false,
+	web_shorts_skip_loading_same_index: false,
+	web_shorts_small_screen_watch_while: false,
+	web_shorts_suggested_action_no_bvm: false,
+	web_shorts_surveys: false,
+	web_snackbar_ui_refresh: false, // new
+	web_use_updated_icon_for_oac_badge: false, // new
+	web_yt_searchbox: false,
 
 	kevlar_system_icons: systemIconsKevlar,
 	render_unicode_emojis_as_small_images: unicodeEmojisAsSmallImages,
