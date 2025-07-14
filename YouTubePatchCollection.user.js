@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Patch Collection
-// @version      2.1.1
+// @version      2.1.1.01
 // @description  Allows for changing of yt.config_ values (unofficial update)
 // @author       Aubrey Pankow (aubyomori@gmail.com)
 // @author       Taniko Yamamoto (kirasicecreamm@gmail.com)
@@ -93,7 +93,7 @@ let useWilIconsKevlar = true; //                                              if
 let useYtdPlayer = true; //                                                   use the ytd player
 let varYoutubeSans = false; //                                                * set the youtube sans font in a variable
 
-let buttonReworkWithLive = true; //                                           reworked buttons on live
+let buttonReworkWithLive = true; //                                           reworked buttons on live. setting it to false brings back the old style buttons, noticeable in youtube shorts
 let clientUnavailableVideoErrorUi = false; //                                 * the hell is this?
 let isWatchModernMetapanel = true; //                                         maybe related to metadata panels ??
 let isAmsterdamPlaylists = false; //                                          * the hell is this? themed playlists?
@@ -253,7 +253,7 @@ const EXPFLAGS = {
 	web_amsterdam_playlists: isAmsterdamPlaylists,
 	web_animated_like: isAnimatedLike,
 	web_button_rework: isButtonRework,
-	web_button_rework_with_live: buttonReworkWithLive,
+	web_button_rework_with_live: buttonReworkWithLive, // the one yt.config_.EXPERIMENT_FLAGS flag that's responsible for the old style buttons, noticeable in youtube shorts
 	web_darker_dark_theme: enableDarkerDarkTheme,
 	web_darker_dark_theme_deprecate: enableDarkerDarkTheme_deprecate,
 	web_darker_dark_theme_live_chat: enableDarkerDarkTheme_liveChat,
@@ -398,7 +398,7 @@ class YTP {
 
 window.addEventListener("yt-page-data-updated", function tmp() {
 	YTP.stop();
-	for (let i = 0; i < ATTRS.length; i++) { // added 'let', which was previously missing in the original repo and has no negative runtime impact
+	for (i = 0; i < ATTRS.length; i++) { // revert change: remove 'let' (diagnosing if this is a result of high memory usage on my end, context: return youtube dislike v3.0.0.18)
 		document.getElementsByTagName("html")[0].removeAttribute(ATTRS[i]);
 	}
 	window.removeEventListener("yt-page-date-updated", tmp);
