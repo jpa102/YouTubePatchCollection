@@ -42,6 +42,7 @@ let isWatchCommentsPanelButton = false; //                                    * 
 let isWatchGrid = false; //                                                   * the watch page layout, setting it to true also shifts the comment section to the right
 let isWebAnimatedActions = true; //                                           actions are animated (web)
 
+let cairoModernMiniplayer = false; //                                         cairo miniplayer (modern style, utilize it or no?)
 let commentsDelayTimer = 1000; //                                             adds a delay to the comments ?? (5000 milliseconds by default)
 let compactViewCountRefreshMetadata = true; //                                refresh compact view counts - metadata
 let deprecateCSIinfo = true; //                                               deprecate the "csi" info in channel page
@@ -68,26 +69,32 @@ let enableMastheadQuartilePingFix = true; //                                  id
 let enableModernChannelPageProfileSection = false; //                         * idk what is this at the moment...
 let enablePolymerResin = true; //                                             enable the polymer resin (connected to the layout?)
 let enablePolymerResinMigration = true; //                                    idk what is this at the moment...
+let enableRollingCharactersUpdate = false; //                                 rolling characters update (can be seen on like counts for example)
 let enableScrollingFix = true; //                                             * enable the fix for scrolling
 let enableShortsReVampedMetadataLayout = true; //                             enable the new revamped shorts player layout design, previously seen on one of my google accounts (A/B testing?)
 let enableUpArrow = true; //                                                  enables the up arrow (i don't know where is its intended purpose)
 let enableWizIconShape = true; //                                             enables the "wiz icon" shape
-let enableYoodle = true; //                                                   enable the "yoodle" feature (youtube doodles?)
+let enableYoodle = true; //                                                   enable youtube doodles
 let forcedInternalCountryCodeDebug = ""; //                                   forced debug internal country code (two letter string, example is en_US)
+let fixLikeDislikeButtonsUndefined = true; //                                 fix the like and dislike buttons being "undefined"
 let guideBusinessInfoInCountriesList = ['KR']; //                             the list of countries with business info
 let guideLegalFooterEnabledInCountriesList = ['NL', 'ES']; //                 the list of countries with legal footer enabled
 let hideTeaserComments = true; //                                             hide the teaser comments in the watch page ??
+let isAnimatedLikeLazyLoading = false; //                                     like animation in "lazy loading"
+let isAvatarShapeInlineIcon = false; //                                       make the avatar icon shape "inline"
 let isClientRelease = true; //                                                sets the flag if the client is in "release - public" or not (maybe "debug") ?
 let isKeyboardButtonFocus = true; //                                          make the buttons have focus (tab navigation)
 let ismodernSdKevlar = true; //                                               the hell is this?
 let isModernWatchPanels = true; //                                            modern watch panels - kevlar
 let isLargeRoundedPlayer = true; //                                           large rounded video player
 let isLargerThreeDotTap = true; //                                            make the three dots button larger on tapping
+let isSavePlaylistIconBookmark = false; //                                    turn the save to playlist icon to bookmark style?
 let isSegmentedLikeDislikeButton = true; //                                   segmented like and dislike buttons
 let isSidebarSwipeable = true; //                                             * set the sidebar if it can be swiped or not
 let isSystemIconsKevlar = true; //                                            kevlar system icons (idk what the hell is "kevlar", but it can be found internally
 let isTabGesture = false; //                                                  * sets the tab gesture
 let isURLnotDisplayable = true; //                                            idk what this is, but it can be related to the rendering of the URLs (maybe making it not clickable)
+let isWebAnimatedActionsV2 = false; //                                        web animated actions (v2 variant)
 let isWebModernTypography = true; //                                          toggle the new modern typography throughout the website
 let isTypographyUpdate = true; //                                             related to the fonts being used throughout the website
 let migrateRemainingAdBadges = true; //                                       migrate the remaining web ad badges to "innertube" (who likes ads?)
@@ -118,9 +125,9 @@ let roundedContainers = true; //                                              * 
 let roundedThumbnails = true; //                                              rounded thumbnails
 let systemIconsKevlar = false; //                                             kevlar system icons
 let unicodeEmojisAsSmallImages = false; //                                    * render the unicode emojis as small images
-let useColorPalettesFromModernCollectionsV2 = false; //                       
+let useColorPalettesFromModernCollectionsV2 = false; //                       use the color palettes found in modern collections v2
 let watchMetadataRefresh = true; //                                           refresh the metadata on watch page
-let webSearchbarStyle = "default"; //                                         searchbar style (string)
+let webSearchbarStyle = "default"; //                                         searchbar style (string datatype)
 let webSheetsUiRefresh = true; //                                             css ui refresh ??
 
 
@@ -217,19 +224,20 @@ const EXPFLAGS = {
 	kevlar_watch_modern_panels: isModernWatchPanels,
 	migrate_remaining_web_ad_badges_to_innertube: migrateRemainingAdBadges,
 	mweb_enable_keto_batch_icons: enableKetoBatchIcons,
-	web_enable_flexible_overlay: enableShortsReVampedMetadataLayout,
-	web_modern_typography: isWebModernTypography,
-	web_segmented_like_dislike_button: isSegmentedLikeDislikeButton,
-	web_watch_rounded_player_large: isLargeRoundedPlayer,
-	// new
 	use_color_palettes_modern_collections_v2: useColorPalettesFromModernCollectionsV2,
-	web_animated_actions: isWebAnimatedActions,
 	web_animated_actions_v2: isWebAnimatedActionsV2,
 	web_animated_like_lazy_load: isAnimatedLikeLazyLoading,
 	web_animated_rolling_character_update: enableRollingCharactersUpdate,
-	web_avatar_shape_inline_icon: avatarShapeInlineIcon,
+	web_avatar_shape_inline_icon: isAvatarShapeInlineIcon,
 	web_bookmark_playlist_save_icon: isSavePlaylistIconBookmark,
 	web_cairo_modern_miniplayer: cairoModernMiniplayer,
+	web_enable_flexible_overlay: enableShortsReVampedMetadataLayout,
+	web_fix_segmented_like_dislike_undefined: fixLikeDislikeButtonsUndefined,
+	web_modern_typography: isWebModernTypography,
+	web_segmented_like_dislike_button: isSegmentedLikeDislikeButton,
+	web_watch_rounded_player_large: isLargeRoundedPlayer,
+
+	// new
 	web_cairo_modern_miniplayer_infobar: false,
 	web_cairo_modern_miniplayer_old_sizing: false,
 	web_cairo_modern_miniplayer_transitions: false,
@@ -242,7 +250,6 @@ const EXPFLAGS = {
 	web_ep_restyling: false, // new
 	web_filled_subscribed_button: false,
 	web_fix_fine_scrubbing_false_play: false,
-	web_fix_segmented_like_dislike_undefined: true,
 	web_move_autoplay_video_under_chip: false,
 	web_shorts_badge_migration: false,
 	web_shorts_deflate_inactive_slides_aggressive: false,
@@ -412,7 +419,7 @@ class YTP {
 
 window.addEventListener("yt-page-data-updated", function tmp() {
 	YTP.stop();
-	for (i = 0; i < ATTRS.length; i++) {
+	for (let i = 0; i < ATTRS.length; i++) {
 		document.getElementsByTagName("html")[0].removeAttribute(ATTRS[i]);
 	}
 	window.removeEventListener("yt-page-date-updated", tmp);
