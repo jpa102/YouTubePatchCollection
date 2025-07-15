@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Patch Collection
-// @version      2.1.1.01
+// @version      2.1.2
 // @description  Allows for changing of yt.config_ values (unofficial update)
 // @author       Aubrey Pankow (aubyomori@gmail.com)
 // @author       Taniko Yamamoto (kirasicecreamm@gmail.com)
@@ -22,10 +22,14 @@
 
 	note: some flags here may have been removed completely so they may not work anymore
 	legend: comments marked with * are removed in the EXPERIMENT_FLAGS list as of 7/13/25 (will be removed by myself at some time)
+
+	the format of the variables are like this:
+		* if i (or someone) can fully explain what it does, i will name the variable in a clear way
+		* if i can't (or even someone) can not fully explain what it does, i will just follow the key name
 */
 
 /*
-	General settings (設定)
+	General settings (全般の設定)
 */
 let disableOldDescription = true; //                                          disable the old description from 2021+ layout
 let enableChannelPageHeader = false; //                                       * channel page header ??
@@ -59,11 +63,13 @@ let enableFullyReactiveBadgeShape = true; //                                  id
 let enableGuideRefresh = true; //                                             utilizes the new "refreshed" sidebar look
 let enableHlpClientIcon = true; //                                            idk what is this at the moment...
 let enableJsFixes_Kevlar = true; //                                           enable the js fixes for kevlar
+let enableKetoBatchIcons = false; //                                          idk what is this at the moment...
 let enableMastheadQuartilePingFix = true; //                                  idk, fix the ping issue in the masthead?
 let enableModernChannelPageProfileSection = false; //                         * idk what is this at the moment...
 let enablePolymerResin = true; //                                             enable the polymer resin (connected to the layout?)
 let enablePolymerResinMigration = true; //                                    idk what is this at the moment...
 let enableScrollingFix = true; //                                             * enable the fix for scrolling
+let enableShortsReVampedMetadataLayout = true; //                             enable the new revamped shorts player layout design, previously seen on one of my google accounts (A/B testing?)
 let enableUpArrow = true; //                                                  enables the up arrow (i don't know where is its intended purpose)
 let enableWizIconShape = true; //                                             enables the "wiz icon" shape
 let enableYoodle = true; //                                                   enable the "yoodle" feature (youtube doodles?)
@@ -112,6 +118,7 @@ let roundedContainers = true; //                                              * 
 let roundedThumbnails = true; //                                              rounded thumbnails
 let systemIconsKevlar = false; //                                             kevlar system icons
 let unicodeEmojisAsSmallImages = false; //                                    * render the unicode emojis as small images
+let useColorPalettesFromModernCollectionsV2 = false; //                       
 let watchMetadataRefresh = true; //                                           refresh the metadata on watch page
 let webSearchbarStyle = "default"; //                                         searchbar style (string)
 let webSheetsUiRefresh = true; //                                             css ui refresh ??
@@ -119,7 +126,13 @@ let webSheetsUiRefresh = true; //                                             cs
 
 
 /*
-    Player settings (プレイヤーの設定)
+	Player settings (プレイヤーの設定)
+
+	as noted:
+
+		Player flags
+		!!! USE STRINGS FOR VALUES !!!
+		For example: "true" instead of true
 */
 let webPlayerMoveAutonavToggle = "false"; //                                  auto navigation toggle in player ??
 let webSettingsMenuIcons = "false"; //                                        i have no idea what is this
@@ -155,6 +168,7 @@ const EXPFLAGS = {
 	web_enable_youtab: enableYoutab,
 
 	// custom flags
+	debug_forced_internalcountrycode: forcedInternalCountryCodeDebug,
 	deprecate_csi_has_info: deprecateCSIinfo,
 	desktop_client_release: isClientRelease,
 	desktop_sparkles_light_cta_button: desktopSparklesLightCTAbutton,
@@ -182,7 +196,7 @@ const EXPFLAGS = {
 	kevlar_clear_non_displayable_url_params: isURLnotDisplayable,
 	kevlar_dropdown_fix: enableDropdownFix,
 	kevlar_enable_up_arrow: enableUpArrow,
-	kevlar_enable_wiz_icon_shape: enableWizIconShape, // new
+	kevlar_enable_wiz_icon_shape: enableWizIconShape,
 	kevlar_guide_refresh: enableGuideRefresh,
 	kevlar_js_fixes: enableJsFixes_Kevlar,
 	kevlar_keyboard_button_focus: isKeyboardButtonFocus,
@@ -202,23 +216,23 @@ const EXPFLAGS = {
 	kevlar_watch_metadata_refresh_compact_view_count: compactViewCountRefreshMetadata,
 	kevlar_watch_modern_panels: isModernWatchPanels,
 	migrate_remaining_web_ad_badges_to_innertube: migrateRemainingAdBadges,
+	mweb_enable_keto_batch_icons: enableKetoBatchIcons,
+	web_enable_flexible_overlay: enableShortsReVampedMetadataLayout,
 	web_modern_typography: isWebModernTypography,
 	web_segmented_like_dislike_button: isSegmentedLikeDislikeButton,
 	web_watch_rounded_player_large: isLargeRoundedPlayer,
-	debug_forced_internalcountrycode: forcedInternalCountryCodeDebug,
 	// new
-	mweb_enable_keto_batch_icons: false, // new
-	use_color_palettes_modern_collections_v2: false, // new
-	web_animated_actions: false, // new
-	web_animated_actions_v2: false,
-	web_animated_like_lazy_load: false,
-	web_animated_rolling_character_update: false, // new
-	web_avatar_shape_inline_icon: false, // new
-	web_bookmark_playlist_save_icon: false, // new
-	web_cairo_modern_miniplayer: false, // new
-	web_cairo_modern_miniplayer_infobar: false, // new
-	web_cairo_modern_miniplayer_old_sizing: false, // new
-	web_cairo_modern_miniplayer_transitions: false, // new
+	use_color_palettes_modern_collections_v2: useColorPalettesFromModernCollectionsV2,
+	web_animated_actions: isWebAnimatedActions,
+	web_animated_actions_v2: isWebAnimatedActionsV2,
+	web_animated_like_lazy_load: isAnimatedLikeLazyLoading,
+	web_animated_rolling_character_update: enableRollingCharactersUpdate,
+	web_avatar_shape_inline_icon: avatarShapeInlineIcon,
+	web_bookmark_playlist_save_icon: isSavePlaylistIconBookmark,
+	web_cairo_modern_miniplayer: cairoModernMiniplayer,
+	web_cairo_modern_miniplayer_infobar: false,
+	web_cairo_modern_miniplayer_old_sizing: false,
+	web_cairo_modern_miniplayer_transitions: false,
 	web_cinematic_light_theme: false,
 	web_darker_dark_theme_deprecate: false,
 	web_darker_dark_theme_live_chat: false,
@@ -398,7 +412,7 @@ class YTP {
 
 window.addEventListener("yt-page-data-updated", function tmp() {
 	YTP.stop();
-	for (i = 0; i < ATTRS.length; i++) { // revert change: remove 'let' (diagnosing if this is a result of high memory usage on my end, context: return youtube dislike v3.0.0.18)
+	for (i = 0; i < ATTRS.length; i++) {
 		document.getElementsByTagName("html")[0].removeAttribute(ATTRS[i]);
 	}
 	window.removeEventListener("yt-page-date-updated", tmp);
