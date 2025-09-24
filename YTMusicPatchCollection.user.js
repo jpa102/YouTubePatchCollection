@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YT Music Patch Collection
-// @version      2.1.2
+// @version      2.1.5
 // @description  Allows for changing of yt.config_ values (unofficial update)
 // @author       Aubrey Pankow (aubyomori@gmail.com)
 // @author       Taniko Yamamoto (kirasicecreamm@gmail.com)
@@ -8,7 +8,7 @@
 // @license      Unlicense
 // @downloadURL  https://raw.githubusercontent.com/jpa102/YouTubePatchCollection/main/YTMusicPatchCollection.user.js
 // @updateURL    https://raw.githubusercontent.com/jpa102/YouTubePatchCollection/main/YTMusicPatchCollection.user.js
-// @match        music.youtube.com/*
+// @match        *://music.youtube.com/*
 // @icon         https://music.youtube.com/favicon.ico
 // @run-at       document-start
 // @grant        none
@@ -34,8 +34,8 @@
 let alignTheThreeDotMenuWithTitleDescription = true; //                         self explanatory
 let allowSkippingWithoutNetwork = true; //                                      allow to skip with no internet connection
 let attributeWebRecordMetrics = true; //                                        idk what is this at the moment...
-let buttonReworkWithLive = false; //                                            reworked buttons on live. setting it to false brings back the old style buttons, noticeable in youtube shorts
-let bypassThePolymerVersionOfYtIcon = false; //                                 idk what is this at the moment...
+let buttonReworkWithLive = false; //                                            reworked buttons (with live?), setting it to false brings back the old style buttons
+let bypassThePolymerVersionOfYtIcon = false; //                                 skip the polymer design version of the youtube icon?
 let cairo_enableCreateCollabPlaylistToggle = true; //                           enable the toggle to create collab playlist
 let cairo_enableNewCollaboratorsListAndActions = true; //                       enable the new collaborators list and actions
 let cairo_enablePrivatePlaylistSharing = true; //                               enable the private sharing of playlists
@@ -45,29 +45,35 @@ let cairo_enableVotingRefreshToast = true; //                                   
 let centerAlignTheActionCompanionCenterToDescription = true; //                 idk what is this at the moment...
 let cleanupManualAttributionHeader = true; //                                   idk what is this at the moment...
 let compressGel = true; //                                                      idk what is this at the moment...
+let csiOnGel = true; //                                                         idk what is this at the moment...
 let delayFetchingGuideResponseMobileWeb = true; //                              delay fetching of the guide response in mobile web version?
-let deprecateCSIinfo = false; //                                                deprecate the "csi" info in channel page
+let deprecateCSIinfo = false; //                                                deprecate the 'csi' info in channel page
 let disableAudioVideoSwitcherWhenAudioOnly = true; //                           disable audio and video switcher when the track is audio only
 let disableAutoFormattedStringsOnChildNode = true; //                           disable the auto-formatting of strings at child node
 let disableCachedMastheadData = true; //                                        idk what is this at the moment...
 let disableFetchingGuideInWebfe = true; //                                      idk what is this at the moment...
 let disableLogToVisitorLayer = true; //                                         idk what is this at the moment...
+let disablePacfLoggingForMemoryLimitedTv = true; //                             disable 'pacf'
 let disableSignoutRedirect = true; //                                           disable the redirection at sign-out?
 let enableAbReportOnErrorscreen = true; //                                      idk what is this at the moment...
 let enableAlbumDetailPageRedesign_bauhaus = true; //                            enable the album page details redesign
 let enableActiveViewDisplayAdRendererHome = false; //                           enable the active display at home page? (ad renderer, who likes ads?)
 let enableDetailPageDownloadButtonsRedesign_bauhaus = true; //                  enable the download buttons redesign
 let enablePlaylistDetailPageRedesign_bauhaus = true; //                         enable the playlist page details redesign
-let enableAppInstallEntryAppbar = true; //                                      enable the "Install app" at the app bar?
-let enableAppInstallEntryProfileMenu = true; //                                 enable the "Install app" at the profile menu
-let enableAppInstallEntrySideNav = true; //                                     enable the "Install app" at the side navigation
+let enableAppInstallEntryAppbar = true; //                                      enable the 'Install app' at the app bar?
+let enableAppInstallEntryProfileMenu = true; //                                 enable the 'Install app' at the profile menu
+let enableAppInstallEntrySideNav = true; //                                     enable the 'Install app' at the side navigation
 let enableCastingOnWeb = true; //                                               enable casting
-let enableCapriRedesign = true; //                                              enable the "Capri" redesign of yt music layout
+let enableCapriRedesign = false; //                                             enable the 'Capri' redesign of the yt music layout
+let enableClientCreatorGoalTickerBarRevamp = true //                            idk what is this at the moment...
 let enableClientStreamzOnWeb = true; //                                         idk what is this at the moment...
+let enableClickTargetFixForTwoRowItemRenderer = true; //                        idk what is this at the moment...
+let enableControllerExtractionLiveChat = true; //                               idk what is this at the moment...
 let enableCreditsInSongs = true; //                                             self explanatory
 let enableDragAndDropUpload = true; //                                          enable the ability to drag and drop upload feature
-let enableError304 = true; //                                                   enable error 204 (don't know if this refers to the http status code)
+let enableError204 = true; //                                                   enable error 204 (don't know if this refers to the http status code)
 let enableExploreTab = true; //                                                 self explanatory
+let enableFullyReactiveBadgeShape = true; //                                    idk what is this at the moment...
 let enableGettingAccountSwitcherEndpointOnWebfe = true; //                      idk what is this at the moment...
 let enableHandlesInAccountSwitcher = true; //                                   enable handles in the account switcher
 let enableHandlesAndNamesInAccountSwitcher = true; //                           enable handles and names in the account switcher
@@ -75,6 +81,7 @@ let enableImproveYourRecommendationsSetting = true; //                          
 let enableInappBackgroundMobileWeb = true; //                                   enable in-app background at the mobile web version (noticeable when you collapse the player page)
 let enableLiveOverlayFeedInLiveChat = true; //                                  enable the live overlay feed in live chat
 let enableLoopInCast = true; //                                                 enable looping in casting
+let enableLtcParameterFetchingFromInnertube = true; //                          idk what is this at the moment...
 let enableMediaSessionMetadataFix = true; //                                    idk what is this at the moment...
 let enableMembershipsAndPurchases = true; //                                    self explanatory
 let enableMigrationPlaylistShelfContinuations = true; //                        enable the migration of playlist shelf (continuations?)
@@ -82,46 +89,65 @@ let enableMixedDirectionFormattedStrings = true; //                             
 let enableModularPlayerPageServer = true; //                                    idk what is this at the moment...
 let enableMultiPageMenu = true; //                                              enable the multi-page menu
 let enableMultiSelect = true; //                                                enable multi selecting?
-let enableMusicCssMss = true; //                                                idk what is this at the moment...
+let enableMusicCssMss = false; //                                               idk what is this at the moment...
 let enableNewIconSet = false; //                                                enable the new set of icons
-let enableNewMusicPlayerBarMobileWeb = true; //                                 enable the new player bar on the mobile version of yt music
+let enableNewMusicPlayerBarMobileWeb = false; //                                enable the new player bar on the mobile version of yt music
+let enableNewStyleButtonsAndChipsBauhaus = false; //                            enable the new redesigned buttons and chips (bauhaus style, with border radius of 8px instead of 16px)
 let enableOpenInNewTabIcon_desktopSearch = true; //                             idk what is this at the moment...
 let enablePauseAdsHtml5 = true; //                                              enable the pause ads (who likes ads?)
 let enablePaymentsPurchaseManager = true; //                                    enable the payments purchase manager
-let enablePlayerPageModernizationMobileWeb = true; //                           enable the modernization of the player page (mobile web version)
+let enablePlayerPageModernizationMobileWeb = true; //                           enable the redesigned player page (mobile web version)
 let enablePolymerResin = false; //                                              enable the polymer resin (connected to the layout?)
+let enablePremiumVoluntaryPause = false; //                                     enable voluntary pause on premium?
 let enableRadioSteeringInQueues = true; //                                      idk what is this at the moment...
 let enableRelatedTabCarouslFix = true; //                                       enable the fix for the related tab carousel
 let enableResponsiveRadio = true; //                                            self explanatory
 let enableResponsiveRadioClient = true; //                                      self explanatory
+let enableResponsiveRadioToastMessage = true; //                                enable the responsive toast message (appears when there's a notification)
 let enableRtaManager = true; //                                                 idk what is this at the moment...
 let enableRtaManagerLiveChat = true; //                                         idk what is this at the moment...
 let enableSaveQueueToPlaylist = true; //                                        enable saving the queue to a playlist
+let enableSelectAutoplayItem = true; //                                         enable selecting the autoplay for the track
+let enableServerQueueRestoration = true; //                                     enable restoring the queue from the server
+let enableServerQueues = true; //                                               enable queuing from the server
 let enableServiceWorker_YoutubeMusic = true; //                                 enable the service worker for youtube music
-let enableSidenavBauhaus = true; //                                             enable the sidebar? (bauhaus)
+let enableSidenavBauhaus = true; //                                             enable the sidebar (bauhaus style)
 let enableSignedOutSearch = true; //                                            enable searching while signed-out
 let enableSingleSongQueue = true; //                                            enable queuing a single song
 let enableSkipAdGuidancePrompt = true; //                                       enable the skip ad prompt (who likes ads?)
-let enableSkippableAdsForUnplugged = true; //                                   enable skippable ads, for "unplugged"? (i have no idea, does this refer to being signed-out?)
+let enableSkippableAdsForUnplugged = true; //                                   enable skippable ads, for 'unplugged'? (i have no idea, does this refer to being signed-out?)
 let enableSmearingExpansion = true; //                                          idk what is this at the moment...
 let enableSponsoredAdBadge = false; //                                          enable the sponsored ad badge (who likes ads?)
+let enableStickyPlaylistSaving = true; //                                       enable playlist saving (sticky? like pinned?)
 let enableThirdPartyInfo = true; //                                             enable 3rd party info (what's this, collecting and sending info to 3rd parties?)
 let enableTopLandscapeImageLayoutLevelClick = true; //                          idk what is this at the moment...
 let enableVideoDisplayCompactButtonGroupForDesktopSearch = true; //             idk what is this at the moment...
 let enableWebUploadSupport = true; //                                           enable the support for uploading
-let enableYpcSpinners = true; //                                                enable the ypc spinners
+let enableYpcSpinners = true; //                                                enable the 'ypc' spinners
 let enableYtIframeAuthuser = true; //                                           enable authenticating the user within an iframe of youtube?
 let exportNetworklessOptions = true; //                                         idk what is this at the moment...
+let fixQueueLoggingRaceCondition = true; //                                     fix the logging in queues because of race condition
 let hidePlayerSidebarScreenReaderFullscreen = true; //                          hides the player sidebar from screen readers on fullscreen
 let isButtonRework = false; //                                                  reworked buttons throughout pages
 let jsonCondensedResponse = true; //                                            json response data is condensed
-let migrateRemainingAdBadges = false; //                                        migrate the remaining web ad badges to "innertube" (who likes ads?)
+let kevlarResponseProcessorAllowlistKillswitch = true; //                       idk what is this at the moment...
+let kevlarServiceCommandCheck = true; //                                        idk what is this at the moment...
+let kevlarWoffleFallbackImage = true; //                                        use 'woffle' as a fallback image?
+let mastheadVisitedChannelColorFix = true; //                                   enable the colr fix for the masthead when visiting a channel
+let migrateEventsToTs = true; //                                                migrate events to (what, typescript?)
+let migrateRemainingAdBadges = false; //                                        migrate the remaining web ad badges to innertube (who likes ads?)
 let musicEnableWilIcons = true; //                                              if set to false, it doesn't render the entire ui (similar behavior to useWilIconsKevlar)
+let newCsnStorageDesign = true; //                                              idk what is this at the moment...
+let pingAdStart = true; //                                                      ping the user when the ad starts (who likes ads?)
+let prebufferAutoplayItems = true; //                                           prebuffer the tracks at autoplay
 let prefetchPreloadVideo = true; //                                             prefetch - preload the video (buffer?)
+let useCacheForImageFallback = true; //                                         probably when there's no internet connection, use the image stored from cache as a fallback
 let useColorPalettesFromModernCollectionsV2 = false; //                         use the color palettes found in modern collections v2
+let useNewInMemoryStorage = true; //                                            idk what is this at the moment...
 let useVimioBehavior = true; //                                                 apparently, setting this to false disables the loading of profile pictures at the sidebar
 let useWilIconsKevlar = true; //                                                if set to false, it doesn't render the icons inside the buttons
 let webApiUrl = true; //                                                        web api url, i don't know what will happen if this is set to false
+let wizDiffOverwritable = true; //                                              make the diff overwritable
 let ytmusic_networklessLogging = true; //                                       networkless logging (offline logs)
 
 // ======================================================================
@@ -155,7 +181,7 @@ const EXPFLAGS = {
 	compress_gel: compressGel,
 	cow_optimize_idom_compat: true,
 	csi_config_handling_infra: true,
-	csi_on_gel: true,
+	csi_on_gel: csiOnGel,
 	delay_fetch_guide_response_on_mobile_web: delayFetchingGuideResponseMobileWeb,
 	deprecate_csi_has_info: deprecateCSIinfo,
 	disable_av_switcher_when_audio_only: disableAudioVideoSwitcherWhenAudioOnly,
@@ -165,14 +191,14 @@ const EXPFLAGS = {
 	disable_fetch_guide_in_webfe: disableFetchingGuideInWebfe,
 	disable_log_to_visitor_layer: disableLogToVisitorLayer,
 	disable_music_web_sign_out_redirect: disableSignoutRedirect,
-	disable_pacf_logging_for_memory_limited_tv: true,
+	disable_pacf_logging_for_memory_limited_tv: disablePacfLoggingForMemoryLimitedTv,
 	enable_ab_report_on_errorscreen: enableAbReportOnErrorscreen,
 	enable_ab_rp_int: true,
 	enable_active_view_display_ad_renderer_web_home: enableActiveViewDisplayAdRendererHome,
 	enable_async_ab_enf: true,
 	enable_cast_on_music_web: enableCastingOnWeb,
-	enable_click_target_fix_for_two_row_item_renderer: true,
-	enable_client_creator_goal_ticker_bar_revamp: true,
+	enable_click_target_fix_for_two_row_item_renderer: enableClickTargetFixForTwoRowItemRenderer,
+	enable_client_creator_goal_ticker_bar_revamp: enableClientCreatorGoalTickerBarRevamp,
 	enable_client_only_wiz_direct_reactions: true,
 	enable_client_sli_logging: true,
 	enable_client_streamz_web: enableClientStreamzOnWeb,
@@ -182,13 +208,13 @@ const EXPFLAGS = {
 	enable_datasync_id_header_in_web_vss_pings: true,
 	enable_entity_store_from_dependency_injection: true,
 	enable_flow_logging_p4e: true,
-	enable_fully_reactive_badge_shape: true,
+	enable_fully_reactive_badge_shape: enableFullyReactiveBadgeShape,
 	enable_get_account_switcher_endpoint_on_webfe: enableGettingAccountSwitcherEndpointOnWebfe,
 	enable_google_payments_buyflow_material2_style_web: true,
 	enable_handles_account_menu_switcher: enableHandlesInAccountSwitcher,
 	enable_in_app_backgrounding_mobile_web: enableInappBackgroundMobileWeb,
 	enable_live_overlay_feed_in_live_chat: enableLiveOverlayFeedInLiveChat,
-	enable_ltc_param_fetch_from_innertube: true,
+	enable_ltc_param_fetch_from_innertube: enableLtcParameterFetchingFromInnertube,
 	enable_memberships_and_purchases: enableMembershipsAndPurchases,
 	enable_mixed_direction_formatted_strings: enableMixedDirectionFormattedStrings,
 	enable_modular_player_page_server: enableModularPlayerPageServer,
@@ -222,7 +248,7 @@ const EXPFLAGS = {
 	enable_polymer_resin: enablePolymerResin,
 	enable_populate_att_psd_in_abe_feedback: true,
 	enable_populate_psd_in_abe_feedback: true,
-	enable_premium_voluntary_pause: true,
+	enable_premium_voluntary_pause: enablePremiumVoluntaryPause,
 	enable_pv_screen_modern_text: true,
 	enable_rta_manager: enableRtaManager,
 	enable_sdf_companion_h5: true,
@@ -260,19 +286,19 @@ const EXPFLAGS = {
 	json_condensed_response: jsonCondensedResponse,
 	kev_adb_pg: true,
 	kevlar_gel_error_routing: true,
-	kevlar_response_processor_allowlist_killswitch: true,
-	kevlar_service_command_check: true,
+	kevlar_response_processor_allowlist_killswitch: kevlarResponseProcessorAllowlistKillswitch,
+	kevlar_service_command_check: kevlarServiceCommandCheck,
 	kevlar_use_vimio_behavior: useVimioBehavior,
 	kevlar_use_wil_icons: useWilIconsKevlar,
-	kevlar_woffle_fallback_image: true,
-	live_chat_enable_controller_extraction: true,
+	kevlar_woffle_fallback_image: kevlarWoffleFallbackImage,
+	live_chat_enable_controller_extraction: enableControllerExtractionLiveChat,
 	live_chat_enable_rta_manager: enableRtaManagerLiveChat,
 	log_click_with_layer_from_element_in_command_handler: true,
 	log_errors_through_nwl_on_retry: true,
 	log_gel_compression_latency: true,
 	log_heartbeat_with_lifecycles: true,
 	main_web_redirect_integration_riot: true,
-	migrate_events_to_ts: true,
+	migrate_events_to_ts: migrateEventsToTs,
 	migrate_remaining_web_ad_badges_to_innertube: migrateRemainingAdBadges,
 	music_enable_explore_tab_on_web: enableExploreTab,
 	music_enable_improve_your_recommendations_setting: enableImproveYourRecommendationsSetting,
@@ -280,17 +306,17 @@ const EXPFLAGS = {
 	music_enable_radio_steering_in_queues: enableRadioSteeringInQueues,
 	music_enable_responsive_radio: enableResponsiveRadio,
 	music_enable_responsive_radio_client: enableResponsiveRadioClient,
-	music_enable_responsive_radio_toast_message: true,
+	music_enable_responsive_radio_toast_message: enableResponsiveRadioToastMessage,
 	music_enable_save_queue_to_playlist: enableSaveQueueToPlaylist,
 	music_enable_single_song_queue: enableSingleSongQueue,
-	music_enable_sticky_playlist_saving: true,
+	music_enable_sticky_playlist_saving: enableStickyPlaylistSaving,
 	music_web_cast_enable_loop: enableLoopInCast,
 	music_web_cast_set_initial_state: true,
 	music_web_delay_watch_next_processing: true,
 	music_web_display_av_switcher: true,
 	music_web_enable_av_switcher: true,
 	music_web_enable_bauhaus_sidenav: enableSidenavBauhaus,
-	music_web_enable_bauhaus_style_buttons_and_chips: true,
+	music_web_enable_bauhaus_style_buttons_and_chips: enableNewStyleButtonsAndChipsBauhaus,
 	music_web_enable_capri_redesign: enableCapriRedesign,
 	music_web_enable_drag_drop_upload: enableDragAndDropUpload,
 	music_web_enable_icon_wil: musicEnableWilIcons,
@@ -304,17 +330,17 @@ const EXPFLAGS = {
 	music_web_enable_redux_playing_state_handling: true,
 	music_web_enable_related_tab_carousel_fix: enableRelatedTabCarouslFix,
 	music_web_enable_reuse_player_queue_item_component: true,
-	music_web_enable_select_autoplay_item: true,
-	music_web_enable_server_queue_restoration: true,
-	music_web_enable_server_queues: true,
+	music_web_enable_select_autoplay_item: enableSelectAutoplayItem,
+	music_web_enable_server_queue_restoration: enableServerQueueRestoration,
+	music_web_enable_server_queues: enableServerQueues,
 	music_web_enable_service_worker: enableServiceWorker_YoutubeMusic,
 	music_web_execute_on_response_received_endpoints_on_watch_next_response: true,
-	music_web_fix_queue_logging_race_condition: true,
+	music_web_fix_queue_logging_race_condition: fixQueueLoggingRaceCondition,
 	music_web_handle_sps_reject_failure: true,
 	music_web_hide_player_sidebar_from_screen_reader_on_fullscreen: hidePlayerSidebarScreenReaderFullscreen,
 	music_web_mark_root_visible: true,
-	music_web_ping_ad_start: true,
-	music_web_prebuffer_autoplay_items: true,
+	music_web_ping_ad_start: pingAdStart,
+	music_web_prebuffer_autoplay_items: prebufferAutoplayItems,
 	music_web_respect_playback_content_mode: true,
 	music_web_skip_repeated_player_error_toasts: true,
 	mutable_signal_set_skip_unchanged: true,
@@ -322,7 +348,7 @@ const EXPFLAGS = {
 	mweb_deprecate_skip_ve_logging: true,
 	mweb_shorts_comments_panel_id_change: true,
 	networkless_logging: ytmusic_networklessLogging,
-	new_csn_storage_design: true,
+	new_csn_storage_design: newCsnStorageDesign,
 	nwl_send_from_memory_when_online: true,
 	pageid_as_header_web: true,
 	polymer_bad_build_labels: true,
@@ -350,7 +376,7 @@ const EXPFLAGS = {
 	use_event_time_ms_header: true,
 	use_fifo_for_networkless: true,
 	use_infogel_early_logging: true,
-	use_new_in_memory_storage: true,
+	use_new_in_memory_storage: useNewInMemoryStorage,
 	use_player_abuse_bg_library: true,
 	use_request_time_ms_header: true,
 	use_rta_manager_for_async: true,
@@ -370,11 +396,11 @@ const EXPFLAGS = {
 	web_enable_ab_rsp_cl: true,
 	web_enable_abd_ref: true,
 	web_enable_course_icon_update: true,
-	web_enable_error_204: enableError304,
+	web_enable_error_204: enableError204,
 	web_enable_sink_yt_content_metadata_view_model: true,
 	web_gcf_hashes_innertube: true,
 	web_gel_timeout_cap: true,
-	web_masthead_visited_channel_color_fix: true,
+	web_masthead_visited_channel_color_fix: mastheadVisitedChannelColorFix,
 	web_one_platform_error_handling: true,
 	web_playback_associated_ve: true,
 	web_poly_si_remove_using: true,
@@ -384,9 +410,9 @@ const EXPFLAGS = {
 	web_resizable_advertiser_banner_on_masthead_safari_fix: true,
 	web_scheduler_auto_init: true,
 	web_shorts_pivot_button_view_model_reactive: true,
-	web_use_cache_for_image_fallback: true,
+	web_use_cache_for_image_fallback: useCacheForImageFallback,
 	webfe_disable_ab_em_plb: true,
-	wiz_diff_overwritable: true,
+	wiz_diff_overwritable: wizDiffOverwritable,
 	wiz_memoize_stamper_items: true,
 	wiz_use_generic_logging_infra: true,
 	woffle_used_state_report: true,
@@ -569,3 +595,4 @@ YTP.start();
 
 YTP.setCfgMulti(CONFIGS);
 YTP.setExpMulti(EXPFLAGS);
+yt.config_.FEXP_EXPERIMENTS = null;
