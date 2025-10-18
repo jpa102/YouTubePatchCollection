@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Patch Collection
-// @version      2.1.4
+// @version      2.1.5
 // @description  Allows for changing of yt.config_ values (unofficial update)
 // @author       Aubrey Pankow (aubyomori@gmail.com)
 // @author       Taniko Yamamoto (kirasicecreamm@gmail.com)
@@ -77,7 +77,7 @@ let enableUpArrow = true; //                                                  en
 let enableWizIconShape = false; //                                             enables the "wiz icon" shape
 let enableYoodle = false; //                                                   enable youtube doodles
 let forcedInternalCountryCodeDebug = "JP"; //                                   forced debug internal country code (two letter string, example is en_US)
-let fixLikeDislikeButtonsUndefined = true; //                                 fix the like and dislike buttons being "undefined"
+let fixLikeDislikeButtonsUndefined = false; //                                 fix the like and dislike buttons being "undefined"
 let guideBusinessInfoInCountriesList = ['KR']; //                             the list of countries with business info
 let guideLegalFooterEnabledInCountriesList = ['NL', 'ES']; //                 the list of countries with legal footer enabled
 let hideTeaserComments = false; //                                             hide the teaser comments in the watch page ??
@@ -90,7 +90,7 @@ let isModernWatchPanels = false; //                                            m
 let isLargeRoundedPlayer = false; //                                           large rounded video player
 let isLargerThreeDotTap = true; //                                            make the three dots button larger on tapping
 let isSavePlaylistIconBookmark = false; //                                    turn the save to playlist icon to bookmark style?
-let isSegmentedLikeDislikeButton = true; //                                   segmented like and dislike buttons
+let isSegmentedLikeDislikeButton = false; //                                   segmented like and dislike buttons
 let isSidebarSwipeable = false; //                                             * set the sidebar if it can be swiped or not
 let isSystemIconsKevlar = false; //                                            kevlar system icons (idk what the hell is "kevlar", but it can be found internally
 let isTabGesture = false; //                                                  * sets the tab gesture
@@ -104,6 +104,7 @@ let userExperiment = false; //                                                 s
 let useNewHistoryManager = false; //                                           use the new history manager (desktop)
 let useVimioBehavior = true; //                                               apparently, setting this to false disables the loading of profile pictures at the sidebar
 let useWilIconsKevlar = true; //                                              if set to false, it doesn't render the icons inside the buttons
+let useYouTubeSansAsVideoTitleFont = false; //                                if set to false, it will use youtube sans as the h1 (headline) font in the watch page title instead of roboto
 let useYtdPlayer = true; //                                                   use the ytd player
 let varYoutubeSans = false; //                                                * set the youtube sans font in a variable
 
@@ -132,20 +133,6 @@ let webSearchbarStyle = "default"; //                                         se
 let webSheetsUiRefresh = false; //                                             css ui refresh ??
 
 
-
-/*
-	Player settings (プレイヤーの設定)
-
-	as noted:
-
-		Player flags
-		!!! USE STRINGS FOR VALUES !!!
-		For example: "true" instead of true
-*/
-let webPlayerMoveAutonavToggle = "false"; //                                  auto navigation toggle in player ??
-let webSettingsMenuIcons = "false"; //                                        i have no idea what is this
-let roundedContainersPlayer = false; //                                       rounded containers (like in the description at the watch page)
-let roundedThumbnailsPlayer = false; //                                       rounded thumbnails
 
 // ======================================================================
 
@@ -249,7 +236,7 @@ const EXPFLAGS = {
 	web_avatar_shape_inline_icon: isAvatarShapeInlineIcon,
 	web_bookmark_playlist_save_icon: isSavePlaylistIconBookmark,
 	web_cairo_modern_miniplayer: cairoModernMiniplayer,
-	web_enable_dynamic_metadata: false,
+	web_enable_dynamic_metadata: false, // new
 	web_enable_flexible_overlay: enableShortsReVampedMetadataLayout,
 	web_enable_sink_yt_content_metadata_view_model: false,
 	web_expandable_metadata_content_hidden_with_display_none: false,
@@ -278,6 +265,7 @@ const EXPFLAGS = {
 	web_move_autoplay_video_under_chip: false,
 	web_shorts_badge_migration: false,
 	web_shorts_deflate_inactive_slides_aggressive: false,
+	web_shorts_modern_controls: false, // new
 	web_shorts_scrubber_bar: false,
 	web_shorts_scrubber_bar_counterfactual: false,
 	web_shorts_scrubber_bar_skip_listeners: false,
@@ -289,7 +277,9 @@ const EXPFLAGS = {
 	web_snackbar_ui_refresh: false,
 	web_structured_description_show_more: false,
 	web_use_updated_icon_for_oac_badge: false,
-	web_watch_rounded_player_large: true, // new
+	web_watch_move_summary_to_sd: false, // new
+	web_watch_rounded_player_large: false, // new
+	web_watch_typography_title_headline_xs: useYouTubeSansAsVideoTitleFont, // new
 	web_yt_searchbox: true,
 
 	kevlar_system_icons: systemIconsKevlar,
@@ -322,14 +312,33 @@ const EXPFLAGS = {
 
 
 
-// Player flags
-// !!! USE STRINGS FOR VALUES !!!
-// For example: "true" instead of true
+/*
+	Player settings (プレイヤーの設定)
+
+	as noted:
+
+		Player flags
+		!!! USE STRINGS FOR VALUES !!!
+		For example: "true" instead of true
+
+		note: they don't have their own section because it appears it doesn't work for some reason, at least in my end
+*/
+// side note: setting web_player_delhi_dtts to true ruins the delhi configs for some odd reason, why even include it in there, youtube?
 const PLYRFLAGS = {
-	web_player_move_autonav_toggle: webPlayerMoveAutonavToggle,
-	web_settings_menu_icons: webSettingsMenuIcons,
-	web_rounded_containers: roundedContainersPlayer,
-	web_rounded_thumbnails: roundedThumbnailsPlayer
+	delhi_modern_web_player: "false",
+	delhi_modern_web_player_blending_mode: "",
+	delhi_modern_web_player_disable_frosted_glass: "false",
+	delhi_modern_web_player_horizontal_volume_controls: "false",
+	delhi_modern_web_player_icons: "false",
+	delhi_modern_web_player_lhs_volume_controls: "false",
+	delhi_modern_web_player_responsive_compact_controls_threshold: "1300",
+	delhi_web_player_use_external_playlist_panel: "false",
+	enable_web_delhi_icons: "false",
+	web_player_delhi_dtts: "false",
+	web_player_move_autonav_toggle: "false",
+	web_settings_menu_icons: "false",
+	web_rounded_containers: "false",
+	web_rounded_thumbnails: "false"
 };
 
 class YTP {
@@ -459,3 +468,4 @@ YTP.start();
 YTP.setCfgMulti(CONFIGS);
 YTP.setExpMulti(EXPFLAGS);
 YTP.setPlyrFlags(PLYRFLAGS);
+yt.config_.FEXP_EXPERIMENTS = null;
