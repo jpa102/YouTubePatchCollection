@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         YouTube Patch Collection
-// @version      2.1.5
+// @version      2.1.7
 // @description  Allows for changing of yt.config_ values (unofficial update)
 // @author       Aubrey Pankow (aubyomori@gmail.com)
 // @author       Taniko Yamamoto (kirasicecreamm@gmail.com)
@@ -9,6 +9,7 @@
 // @downloadURL  https://raw.githubusercontent.com/jpa102/YouTubePatchCollection/main/YouTubePatchCollection.user.js
 // @updateURL    https://raw.githubusercontent.com/jpa102/YouTubePatchCollection/main/YouTubePatchCollection.user.js
 // @match        www.youtube.com/*
+// @match        m.youtube.com/*
 // @icon         https://www.youtube.com/favicon.ico
 // @run-at       document-start
 // @grant        none
@@ -51,8 +52,8 @@ let disableFrostedGlassEffectOnShorts = false; //                             di
 let disableLegacyDesktopRemoteQueue = false; //                                disable the legacy desktop remote queue
 let disableLegacyMetadataUpdates = false; //                                  * prevents the legacy metadata from getting any updates
 let disableOldDescription2 = false; //
-let enableBiggerThumbsInDesktopSearch = true; //                              idk, bigger thumb icons in search results?
-let enableBiggerThumbsInDesktopSearchSquare = true; //                        idk what is this at the moment...
+let enableBiggerThumbsInDesktopSearch = false; //                              bigger thumbnails in search results?
+let enableBiggerThumbsInDesktopSearchSquare = false; //                        idk what is this at the moment...
 let enableCairoRefresh = false; //                                             * enable the "cairo" redesign
 let enableCairoRefresh_ringo2 = false; //                                      enable the "cairo" redesign (ringo 2)
 let enableCairoRefresh_signatureMoments = false; //                            * enable the "cairo" redesign (signature moments?)
@@ -88,7 +89,7 @@ let isKeyboardButtonFocus = true; //                                          ma
 let ismodernSdKevlar = false; //                                               the hell is this?
 let isModernWatchPanels = false; //                                            modern watch panels - kevlar
 let isLargeRoundedPlayer = false; //                                           large rounded video player
-let isLargerThreeDotTap = true; //                                            make the three dots button larger on tapping
+let isLargerThreeDotTap = false; //                                            make the three dots button larger on tapping
 let isSavePlaylistIconBookmark = false; //                                    turn the save to playlist icon to bookmark style?
 let isSegmentedLikeDislikeButton = false; //                                   segmented like and dislike buttons
 let isSidebarSwipeable = false; //                                             * set the sidebar if it can be swiped or not
@@ -107,6 +108,8 @@ let useWilIconsKevlar = true; //                                              if
 let useYouTubeSansAsVideoTitleFont = false; //                                if set to false, it will use youtube sans as the h1 (headline) font in the watch page title instead of roboto
 let useYtdPlayer = true; //                                                   use the ytd player
 let varYoutubeSans = false; //                                                * set the youtube sans font in a variable
+let watchPageRelatedVideosThumbnailsSize = "168px"; //                        this experiment flag's value changed from 168px to 55%
+let watchPageVideoPlayerAbsoluteSize = 920; //                               this experiment flag's value can also be changed, its default value is 1840 in px (integer in this case)
 
 let buttonReworkWithLive = false; //                                           reworked buttons on live. setting it to false brings back the old style buttons, noticeable in youtube shorts
 let clientUnavailableVideoErrorUi = false; //                                 * the hell is this?
@@ -236,7 +239,8 @@ const EXPFLAGS = {
 	web_avatar_shape_inline_icon: isAvatarShapeInlineIcon,
 	web_bookmark_playlist_save_icon: isSavePlaylistIconBookmark,
 	web_cairo_modern_miniplayer: cairoModernMiniplayer,
-	web_enable_dynamic_metadata: false, // new
+	web_enable_constrained_list_subscriptions_channels: false, // new
+	web_enable_dynamic_metadata: false,
 	web_enable_flexible_overlay: enableShortsReVampedMetadataLayout,
 	web_enable_sink_yt_content_metadata_view_model: false,
 	web_expandable_metadata_content_hidden_with_display_none: false,
@@ -244,28 +248,61 @@ const EXPFLAGS = {
 	web_modern_typography: isWebModernTypography,
 	web_segmented_like_dislike_button: isSegmentedLikeDislikeButton,
 	web_watch_rounded_player_large: isLargeRoundedPlayer,
+	swap_open_in_new_with_arrow_diagonal_up_right_on_desktop: false, // new
+	web_action_buttons_minimize_subscribe: false, // new
+	channel_details_shelf_resize_observer: false, // new
 
 	// new
-	c3_watch_page_component: false, // new
-	kevlar_watch_max_player_width: 1080, // new
+	browse_next_continuations_migration_playlist: false, // new
+	c3_watch_page_component: false,
+	enable_button_behavior_reuse: false, // new
+	enable_chips_shelf_view_model_fully_reactive: false, // new
+	enable_client_creator_goal_ticker_bar_revamp: false, // new
+	enable_client_only_wiz_direct_reactions: false, // new
+	enable_client_only_wiz_tooltips: true, // new
+	enable_client_ve_spec: false, // new
+	enable_connect_icon_update_web: false, // new
+	enable_desktop_vdcbg_components: false, // new
+	enable_fully_reactive_chip_shape: false, // new
+	enable_fully_reactive_chip_view_model: false, // new
+	enable_reel_action_bar_view_model: false, // new
+	enable_reel_watch_sequence: false, // new
+	kevlar_flexy_use_larger_player_value: false, // new
+    kevlar_watch_flexy_playlist_manager: false, // new
+	kevlar_watch_max_player_width: watchPageVideoPlayerAbsoluteSize, //
+    modernize_structured_description_playlist_lockups_v2: false, // new
+	reels_web_use_pbs_first_shorts: false, // new
+	small_avatars_for_comments: false, // new
+	small_avatars_for_comments_ep: false, // new
+    web_amsterdam_playlists: false, // new
+    web_amsterdam_post_mvp_playlists: false, // new
 	web_cairo_modern_miniplayer_infobar: false,
 	web_cairo_modern_miniplayer_old_sizing: false,
 	web_cairo_modern_miniplayer_transitions: false,
 	web_cinematic_light_theme: false,
+    web_collab_playlist_thumbnail_size: false, // new
+	web_comment_threading_scroll_on_collapse: true, // new
+	web_watch_compact_thumbnail_width_string: watchPageRelatedVideosThumbnailsSize, // new
 	web_darker_dark_theme_deprecate: false,
 	web_darker_dark_theme_live_chat: false,
 	web_defer_shorts_ui: false,
 	web_defer_shorts_ui_phase2: false,
 	web_disable_vertical_scroll_chips: false,
-	web_delhi_colorful_sd: true,
+	web_delhi_colorful_sd: false,
+	web_delhi_comment_threads: true, // new
+	web_enable_shorts_new_carousel: false, // new
 	web_ep_restyling: false,
-    web_engagement_panel_show_description: true,
+	web_engagement_panel_show_description: true,
 	web_filled_subscribed_button: false,
 	web_fix_fine_scrubbing_false_play: false,
+	web_frosted_glass: false, // new
 	web_move_autoplay_video_under_chip: false,
+	web_player_quick_action_buttons_icon_only: false, // new
+	web_rich_shelf_show_more_button: false, // new
 	web_shorts_badge_migration: false,
 	web_shorts_deflate_inactive_slides_aggressive: false,
-	web_shorts_modern_controls: false, // new
+	web_shorts_modern_controls: false,
+	web_shorts_pivot_button_view_model_reactive: false, // new
 	web_shorts_scrubber_bar: false,
 	web_shorts_scrubber_bar_counterfactual: false,
 	web_shorts_scrubber_bar_skip_listeners: false,
@@ -277,10 +314,15 @@ const EXPFLAGS = {
 	web_snackbar_ui_refresh: false,
 	web_structured_description_show_more: false,
 	web_use_updated_icon_for_oac_badge: false,
-	web_watch_move_summary_to_sd: false, // new
-	web_watch_rounded_player_large: false, // new
-	web_watch_typography_title_headline_xs: useYouTubeSansAsVideoTitleFont, // new
+	web_watch_move_summary_to_sd: false,
+	web_watch_rounded_player_large: false,
+	web_watch_typography_title_headline_xs: useYouTubeSansAsVideoTitleFont,
 	web_yt_searchbox: true,
+    woffle_playlist_optimization: false,
+    woffle_playlist_visitor_fix: false,
+    web_enable_animated_icon_active_state_fix: false, // new
+    web_enable_course_icon_update: false, // new
+    web_bypass_polymer_yt_icon: false, // new
 
 	kevlar_system_icons: systemIconsKevlar,
 	render_unicode_emojis_as_small_images: unicodeEmojisAsSmallImages,
@@ -468,4 +510,3 @@ YTP.start();
 YTP.setCfgMulti(CONFIGS);
 YTP.setExpMulti(EXPFLAGS);
 YTP.setPlyrFlags(PLYRFLAGS);
-yt.config_.FEXP_EXPERIMENTS = null;
